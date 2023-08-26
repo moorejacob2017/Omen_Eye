@@ -52,7 +52,7 @@ Because it is unsigned, you need a developer versions of Firefox to install it p
 
 If you do not know how to side-load unsigned browser extensions, learn how [here](https://support.mozilla.org/en-US/kb/add-on-signing-in-firefox?as=u&utm_source=inproduct).
 
-The short quick install version is to open the dev version of Firefox, type in `about:config` in the address bar, set the `xpinstall.signatures.required` setting to `false`, and then you are good to install from file.
+The short "how-to" is to open the dev version of Firefox, type in `about:config` in the address bar, set the `xpinstall.signatures.required` setting to `false`, and then you are good to install from file.
 
 ## Usage
 
