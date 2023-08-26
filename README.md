@@ -46,6 +46,14 @@ Omen Eye is comprehensive in its data collection, including:
 - **Inputs, Input Values & Tags**
 - **Query Parameters & Values**
 
+## Installation 
+**WARNING**: This extension is currently unsigned. If you do not feel comfortable installing an unsigned extension, stop here and do not proceed any further.
+Because it is unsigned, you need a developer versions of Firefox to install it permanently. If you do not have the dev version, you can find a tutorial on how to install [here](https://tecadmin.net/install-firefox-developer-edition-on-ubuntu/).
+
+If you do not know how to side-load unsigned browser extensions, learn how [here](https://support.mozilla.org/en-US/kb/add-on-signing-in-firefox?as=u&utm_source=inproduct).
+
+The short quick install version is to open the dev version of Firefox, type in `about:config` in the address bar, set the `xpinstall.signatures.required` setting to `false`, and then you are good to install from file.
+
 ## Usage
 
 1. Click on the Omen Eye icon to start.
