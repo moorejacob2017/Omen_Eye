@@ -46,13 +46,6 @@ Omen Eye is comprehensive in its data collection, including:
 - **Inputs, Input Values & Tags**
 - **Query Parameters & Values**
 
-## Installation
-
-1. Go to the Firefox Add-ons store.
-2. Search for "Omen Eye".
-3. Click "Add to Firefox".
-4. After installation, you'll see the Omen Eye icon in your toolbar.
-
 ## Usage
 
 1. Click on the Omen Eye icon to start.
