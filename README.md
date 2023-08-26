@@ -44,7 +44,6 @@ Omen Eye is comprehensive in its data collection, including:
 - **Headers & Header Values**
 - **Post Parameters & Values**
 - **Inputs, Input Values & Tags**
-- **Input/Value Pairs**
 - **Query Parameters & Values**
 
 ## Installation

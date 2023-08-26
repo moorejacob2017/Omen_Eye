@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Omen Eye",
   "version": "1.0",
-  "description": "A simple browser extension",
+  "description": "An extension for mapping attack surfaces with precision",
   "permissions": [
       "activeTab",
       "webNavigation",
