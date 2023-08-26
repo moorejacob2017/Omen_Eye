@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Omen Eye</title>
+        <link rel="stylesheet" type="text/css" href="popup.css">
+        <script src="popup.js"></script>
+    </head>
+    <body>
+        <div class="popup-container">
+            <img src="images/Omen-Eye-small.png">
+        </div>
+        
+        <div class="output-container">
+            <h3>Output:</h3>
+            <div id="output" style="border: 1px solid #ccc; padding: 10px; min-height: 50px;">
+                <!-- Output will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+
+
+            <div class="left-panel">
+                <div class="popup-container">
+                    <div class="spacing" style="display: flex; justify-content: center; align-items: center;">
+                        <label style="margin-right: 10px; margin-left: 10px;">Collect:</label>
+                        <label class="switch">
+                            <input type="checkbox" id="collectSwitch">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <button id="clear">Clear</button>
+                    <button id="new-tab">New Tab</button>
+
+                    <button id="exportBtn">Export</button>
+                    
+                </div>
+            </div>
+
+            <div class="right-container">
+                <div class="upper-right-panel">
+                    <div class="popup-container">
+                        <div class="spacing">
+                            <label class="desc-label">Collection Scope:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="scopeSwitch">
+                                <span class="slider round"></span>
+                            </label>
+                            <input type="text" class="text-input" id="scopeRegex" placeholder="URL Regex">
+                        </div>
+                
+                        <div class="spacing">
+                            <label class="desc-label">Filter by URL Regex:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="filterSwitch">
+                                <span class="slider round"></span>
+                            </label>
+                            <input type="text" class="text-input" id="filterRegex" placeholder="URL Regex">
+                        </div>
+                
+                        <div class="spacing">
+                            <label class="desc-label">Filter by Regex:</label>
+                            <label class="switch">
+                                <input type="checkbox" id="outputFilterSwitch">
+                                <span class="slider round"></span>
+                            </label>
+                            <input type="text" class="text-input" id="outputFilterRegex" placeholder="Regex">
+                        </div>
+                
+                    </div>
+                </div>
+                
+                <div class="lower-right-panel">
+                    <div class="popup-container">
+                        <label for="get-all-action">Get all </label>
+                        <select id="get-all-action" class="custom-dropdown">
+                            <option value="all-urls">URLs</option>
+                            <option value="all-links">Links</option>
+                            <option value="all-headers">Headers</option>
+                            <option value="all-header-values">Header Values</option>
+                            <option value="all-header-value-pairs">Header/Value Pairs</option>
+                            <option value="all-post-parameters">POST Parameters</option>
+                            <option value="all-post-parameter-values">POST Parameter Values</option>
+                            <option value="all-post-parameter-value-pairs">POST Parameter/Value Pairs</option>
+                            <option value="all-inputs">Inputs</option>
+                            <option value="all-input-values">Input Values</option>
+                            <option value="all-input-value-pairs">Input/Value Pairs</option>
+                            <option value="all-input-tags">Input Tags</option>
+                            <option value="all-query-parameters">Query Parameters</option>
+                            <option value="all-query-parameters-values">Query Parameter Values</option>
+                            <option value="all-query-parameter-value-pairs">Query Parameter/Value Pairs</option>
+                        </select>
+                        <button id="getAllButton">Get All</button>
+                    </div>
+    
+                    <div class="popup-container">
+                        <label for="search-action">Get</label>
+                        <select id="search-action" class="custom-dropdown">
+                            <option value="search-urls">URLs</option>
+                            <option value="search-links">Links</option>
+                            <option value="search-headers">Headers</option>
+                            <option value="search-header-values">Header Values</option>
+                            <option value="search-header-value-pairs">Header/Value Pairs</option>
+                            <option value="search-post-parameters">POST Parameters</option>
+                            <option value="search-post-parameter-values">POST Parameter Values</option>
+                            <option value="search-post-parameter-value-pairs">POST Parameter/Value Pairs</option>
+                            <option value="search-inputs">Inputs</option>
+                            <option value="search-input-tags">Input Tags</option>
+                            <option value="search-input-values">Input Values</option>
+                            <option value="search-input-value-pairs">Input/Value Pairs</option>
+                            <option value="search-query-parameters">Query Parameters</option>
+                            <option value="search-query-parameter-values">Query Parameter Values</option>
+                            <option value="search-query-parameter-value-pairs">Query Parameter/Value Pairs</option>
+                        </select>
+    
+                        <label for="search-criteria">with/for</label>
+                        <select id="search-criteria" class="custom-dropdown">
+                            <!-- Options will be populated here by JavaScript -->
+                        </select>
+    
+                        <label for="search-value">:</label>
+                        <input type="text" id="search-value" placeholder="Search Value">
+                        <button id="searchButton">Get</button>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </body>
+</html>

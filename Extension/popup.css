@@ -1,0 +1,211 @@
+body {
+    width: 700px;
+    height: 450px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    padding-bottom: 120px;
+    background-color: #2b2b2b; /* Dark gray background */
+    color: #e0e0e0; /* Light gray text color */
+}
+
+.popup-container {
+    text-align: center;
+    margin: 1px;
+}
+
+.output-container {
+    box-sizing: border-box;
+    margin: 5px;
+    padding: 7px 10px;
+    max-height: calc(100vh - 285px); /* Deducting 200px (as before) + 50px for the control panel */
+    overflow-y: auto;
+}
+
+.output-container::after {
+    content: "";
+    display: block;
+    height: 75px;  /* Adjust this value as needed */
+}
+
+
+.output-item {
+    border: 1px solid #444; /* Adjusting border color for dark theme */
+    padding: 1px 3px;
+    margin: 3px 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: block;
+    white-space: pre-wrap;
+    background-color: #333; /* Darker box color for outputs */
+    color: #e0e0e0; /* Light gray text color */
+}
+
+h1 {
+    font-size: 18px;
+    color: #e0e0e0; /* Light gray text color */
+}
+
+
+button {
+    width: 120px;
+    margin: 5px;
+    padding: 7px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #333; /* Border for the button */
+    cursor: pointer;
+}
+
+p {
+    margin: 1px;
+    color: #e0e0e0; /* Light gray text color */
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px; /* Reduced width */
+    height: 22px; /* Reduced height */
+    vertical-align: middle; /* To vertically center align it */
+    margin-right: 10px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; /* Reduced height */
+    width: 16px; /* Reduced width */
+    left: 2px; /* Adjusted positioning */
+    bottom: 3px; /* Adjusted positioning */
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(18px); /* Adjusted translation */
+    -ms-transform: translateX(18px);
+    transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 22px; /* Adjusted radius */
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.control-panel {
+    position: fixed;
+    bottom: 5px;
+    width: calc(700px - 10px * 2);
+    z-index: 1000;
+    background-color: #333; /* Dark gray background for the control panel */
+    border-top: 1px solid #444; /* Adjusting border color for dark theme */
+    padding: 2px 5px;
+    color: #e0e0e0; /* Light gray text color */
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.6);
+}
+
+.spacing {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.left-panel {
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
+    padding: 2px 5px;
+}
+
+.right-container {
+    float: left;
+    width: 80%;
+    box-sizing: border-box;
+}
+
+.upper-right-panel, .lower-right-panel {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2px 5px;
+}
+
+/* Optional: Add some margin between the upper and lower right panels */
+
+
+.desc-label {
+    width: 180px; /* Adjust based on your design */
+    margin-right: 10px;
+    text-align: right;
+}
+
+.text-input {
+    flex: 1;
+}
+
+
+/* Base Style for the dropdown */
+.custom-dropdown {
+    appearance: none; /* Remove default appearance */
+    outline: none;
+    width: 190px;
+    padding: 3px 6px;  /* Reduced padding */
+    height: 26px;      /* Your desired height */
+    border: 1px solid #ccc;
+    border-radius: 3px; /* Reduced border-radius */
+    background-color: #e0e0e0;
+    font-size: 13px;     /* Reduced font-size */
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    position: relative;
+}
+
+/* Hover and Focus styles */
+.custom-dropdown:hover,
+.custom-dropdown:focus {
+    border-color: #666;
+}
+
+/* For disabled dropdowns */
+.custom-dropdown:disabled {
+    background-color: #f3f3f3;
+    cursor: not-allowed;
+}
+

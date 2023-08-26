@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "Omen Eye",
+  "version": "1.0",
+  "description": "A simple browser extension",
+  "permissions": [
+      "activeTab",
+      "webNavigation",
+      "webRequest",
+      "webRequestBlocking",
+      "storage",
+      "tabs",
+      "<all_urls>",
+      "file:///*"
+  ],
+  "background": {
+      "scripts": ["background.js"],
+      "persistent": true
+  },
+  "browser_action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+          "128": "images/icon128.png"
+      },
+      "default_title": "Omen Eye"
+  },
+  "icons": {
+      "128": "images/icon128.png"
+  },
+  "content_scripts": [
+      {
+          "matches": ["<all_urls>"],
+          "js": ["content.js"]
+      }
+  ]
+}
