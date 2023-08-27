@@ -100,9 +100,9 @@ class DataManager {
     outputFilter(stringsArray) {
         if (this.outputFilterSwitch) {
             const regex = new RegExp(this.outputFilterRegex);
-            return stringsArray.filter(str => regex.test(str));
+            return stringsArray.filter(str => regex.test(str)).sort();
         }
-        return stringsArray;
+        return stringsArray.sort();
     }
 
     //-------------------------------------------------------------------------
