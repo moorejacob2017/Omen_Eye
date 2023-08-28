@@ -2,6 +2,7 @@ class DataManager {
     constructor() {
         this.urls = new Set();
         this.headers = {}; // { url: { headerName: Set } }
+        this.postBodies = {}; // { url: rawRequestBody }
         this.postParameters = {}; // { url: { paramName: Set } }
         this.inputs = {}; // { url: { inputName: Set } }
         this.queryParameters = {}; // { url: { paramName: Set } }
@@ -24,6 +25,7 @@ class DataManager {
         this.urls.clear();
 
         this.headers = {};
+        this.postBodies = {};
         this.postParameters = {};
         this.inputs = {};
         this.queryParameters = {};
@@ -35,6 +37,7 @@ class DataManager {
         const data = {
             urls: [...this.urls],
             headers: this.setsToArrays(this.headers),
+            postBodies: this.setsToArrays(this.postBodies),
             postParameters: this.setsToArrays(this.postParameters),
             inputs: this.setsToArrays(this.inputs),
             queryParameters: this.setsToArrays(this.queryParameters),
@@ -49,6 +52,7 @@ class DataManager {
     
         this.urls = new Set(data.urls);
         this.headers = this.arraysToSets(data.headers);
+        this.postBodies = this.arraysToSets(data.postBodies);
         this.postParameters = this.arraysToSets(data.postParameters);
         this.inputs = this.arraysToSets(data.inputs);
         this.queryParameters = this.arraysToSets(data.queryParameters);
@@ -126,6 +130,13 @@ class DataManager {
             this.headers[url][name] = new Set();
         }
         this.headers[url][name].add(value);
+    }
+
+    addPostBody(url, postBody) {
+        if (!this.postBodies[url]) {
+            this.postBodies[url] = new Set();
+        }
+        this.postBodies[url].add(postBody);
     }
 
     addPostParameter(url, paramName, paramValue) {
@@ -229,6 +240,21 @@ class DataManager {
             return [...new Set(Object.values(this.headers).flatMap(headerObj => Object.values(headerObj).flatMap(set => [...set])))];
         }
     }
+
+    getAllPostBodies() {
+        if (this.filterSwitch) {
+            const regex = new RegExp(this.filterRegex);
+            return [
+                ...new Set(
+                    Object.entries(this.postBodies)
+                        .filter(([url, _]) => regex.test(url))
+                        .flatMap(([, postBodySet]) => [...postBodySet])
+                )
+            ];
+        } else {
+            return [...new Set(Object.values(this.postBodies).flatMap(postBodySet => [...postBodySet]))];
+        }
+    }    
 
     getAllPostParameters() {
         const parameterNamesSet = new Set();
@@ -755,6 +781,28 @@ class DataManager {
     
         return matchingURLs;
     }
+
+    getURLsByPostBodyRegex(regexStr) {
+        const regex = new RegExp(regexStr);
+        let matchingURLs = [];
+    
+        for (const url in this.postBodies) {
+            for (const postBody of this.postBodies[url]) {
+                if (regex.test(postBody)) {
+                    matchingURLs.push(url);
+                    break;  // move to the next URL once a matching postBody is found for this URL
+                }
+            }
+        }
+    
+        // If the filterSwitch is on, filter the URLs by the filterRegex
+        if (this.filterSwitch && this.filterRegex) {
+            const filter = new RegExp(this.filterRegex);
+            matchingURLs = matchingURLs.filter(url => filter.test(url));
+        }
+    
+        return matchingURLs;
+    }    
     
     getURLsByRegex(regexStr) {
         const regex = new RegExp(regexStr);
@@ -1086,6 +1134,40 @@ class DataManager {
     
         // Return unique matches
         return [...new Set(matches)];
+    }
+
+    getPostBodiesByURL(targetUrl) {
+        // If filterSwitch is enabled and the targetUrl doesn't match filterRegex, return an empty array
+        const filterRegexObj = new RegExp(this.filterRegex); 
+        if (this.filterSwitch && !filterRegexObj.test(targetUrl)) {
+            return [];
+        }
+    
+        // Check if the target URL exists in the postBodies
+        if (this.postBodies.hasOwnProperty(targetUrl)) {
+            return [...this.postBodies[targetUrl]];
+        }
+        return [];
+    }
+
+    getPostBodiesByRegex(regexStr) {
+        const regex = new RegExp(regexStr);
+        const matchingBodies = new Set();
+    
+        for (const url in this.postBodies) {
+            // If filterSwitch is enabled and the URL doesn't match filterRegex, continue to the next URL
+            if (this.filterSwitch && !new RegExp(this.filterRegex).test(url)) {
+                continue;
+            }
+    
+            for (const postBody of this.postBodies[url]) {
+                if (regex.test(postBody)) {
+                    matchingBodies.add(postBody);
+                }
+            }
+        }
+    
+        return [...matchingBodies];
     }
     
     
@@ -1419,6 +1501,8 @@ class DataManager {
                         return this.getURLsByHeaderValue(matchValue);
                     case 'criteria-header-value-pairs':
                         return this.getURLsByHeaderValuePair(matchValue);
+                    case 'criteria-post-body-regex':
+                        return this.getURLsByPostBodyRegex(matchValue);
                     case 'criteria-post-parameters':
                         return this.getURLsByPostParameter(matchValue);
                     case 'criteria-post-parameter-values':
@@ -1484,6 +1568,15 @@ class DataManager {
                         return this.getHeaderValuePairsByRegex(matchValue);
                     default:
                         throw new Error('Unsupported match type for search-header-value-pairs');
+                }
+            case 'search-post-bodies':
+                switch (matchType) {
+                    case 'criteria-urls':
+                        return this.getPostBodiesByURL(matchValue);
+                    case 'criteria-post-body-regex':
+                        return this.getPostBodiesByRegex(matchValue);
+                    default:
+                        throw new Error('Unsupported match type for search-post-bodies');
                 }
             case 'search-post-parameters':
                 switch (matchType) {
@@ -1660,6 +1753,12 @@ chrome.webRequest.onBeforeRequest.addListener(
                     });
                 }
             }
+
+            if (requestBody && requestBody.raw) {
+                const encoder = new TextDecoder("utf-8");
+                const postBody = encoder.decode(new Uint8Array(requestBody.raw[0].bytes));
+                dataManager.addPostBody(url, postBody);
+            }
         }
     },
     { urls: ["<all_urls>"], types: ["main_frame", "sub_frame"] }, // Filter to specific URLs and frame types if needed
@@ -1757,6 +1856,8 @@ function handleRequestMessage(message, sender, sendResponse) {
             case 'all-header-values':
                 sendResponse(dataManager.outputFilter(dataManager.getAllHeaderValues()));
                 break;
+            case 'all-post-bodies':
+                sendResponse(dataManager.outputFilter(dataManager.getAllPostBodies()));
             case 'all-post-parameters':
                 sendResponse(dataManager.outputFilter(dataManager.getAllPostParameters()));
                 break;
@@ -1795,7 +1896,6 @@ function handleRequestMessage(message, sender, sendResponse) {
 
             case 'import':
                 dataManager.import(message.action);
-                console.log('am I here?')
                 sendResponse([]);
                 break;
 

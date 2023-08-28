@@ -43,6 +43,7 @@ function updateSearchCriteria() {
                 { value: 'criteria-headers', text: 'Header', label: 'with' },
                 { value: 'criteria-header-values', text: 'Header Value', label: 'with' },
                 { value: 'criteria-header-value-pairs', text: 'Header/Value Pair', label: 'with' },
+                { value: 'criteria-post-body-regex', text: 'Post Body Regex', label: 'with' },
                 { value: 'criteria-post-parameters', text: 'Post Parameter', label: 'with' },
                 { value: 'criteria-post-parameter-values', text: 'Post Parameter Value', label: 'with' },
                 { value: 'criteria-post-parameter-value-pairs', text: 'Post Parameter/Value Pair', label: 'with' },
@@ -80,6 +81,12 @@ function updateSearchCriteria() {
             options = [
                 { value: 'criteria-urls', text: 'URL', label: 'for' },
                 { value: 'criteria-header-value-pair-regex', text: 'Regex', label: 'with'  },
+            ];
+            break;
+        case 'search-post-bodies':
+            options = [
+                { value: 'criteria-urls', text: 'URL', label: 'for' },
+                { value: 'criteria-post-body-regex', text: 'Regex', label: 'with'  },
             ];
             break;
         case 'search-post-parameters':
@@ -230,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function readFileAsJson() {
-    console.log('READING')
     const fileInput = document.getElementById('fileInput');
     
     if (fileInput.files && fileInput.files[0]) {

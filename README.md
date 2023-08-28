@@ -41,8 +41,8 @@ Omen Eye is comprehensive in its data collection, including:
 
 - **URLs**
 - **Links**
-- **Headers & Header Values**
-- **Post Parameters & Values**
+- **Response Headers & Header Values**
+- **Post Bodies, Parameters & Values**
 - **Inputs, Input Values & Tags**
 - **Query Parameters & Values**
 
@@ -66,4 +66,5 @@ The short "how-to" is to open the dev version of Firefox, type in `about:config`
 
 Please remember to use Omen Eye ethically and responsibly.
 
-
+## To Do
+- Catch, store, and search for request headers and values instead of just response headers
