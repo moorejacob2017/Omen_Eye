@@ -1719,6 +1719,19 @@ function downloadData(manager) {
 // Create an instance of the DataManager class
 const dataManager = new DataManager();
 
+chrome.webRequest.onBeforeRedirect.addListener(
+    (details) => {
+        if (dataManager.isActive && dataManager.matchesCollectionScope(details.url)) { 
+            dataManager.addURL(details.url);
+        }
+
+        if (dataManager.isActive && dataManager.matchesCollectionScope(details.redirectUrl)) { 
+            dataManager.addURL(details.redirectUrl);
+        }
+
+    },
+    { urls: ["<all_urls>"] }
+);
 
 chrome.webRequest.onCompleted.addListener(
     (details) => {
