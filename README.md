@@ -5,7 +5,7 @@
 </p>
 
 
-**Omen Eye** is a specialized Firefox browser extension designed for penetration testers and cybersecurity experts. It aids in scraping vital website information during perimeter walks and attack surface mapping, providing an insightful "pseudo-relational database" approach to quickly navigate and analyze website data.
+**Omen Eye** is a specialized Firefox browser extension designed for penetration testers and cybersecurity experts. It aids in scraping vital website information during attack surface mapping and perimeter walks, providing an insightful "pseudo-relational database" approach to quickly navigate and analyze website data.
 
 <br>
 <br>
