@@ -1755,10 +1755,12 @@ chrome.webRequest.onCompleted.addListener(
 
 chrome.webRequest.onBeforeRequest.addListener(
     (details) => {
-        if (dataManager.isActive && dataManager.matchesCollectionScope(details.url) && details.method === "POST") { // Check if isActive is true
+        // Check if data collection is active and the URL matches the scope
+        if (dataManager.isActive && dataManager.matchesCollectionScope(details.url) && details.method === "POST") {
             const url = details.url;
             const requestBody = details.requestBody;
 
+            // Handle form data (application/x-www-form-urlencoded or multipart/form-data)
             if (requestBody && requestBody.formData) {
                 for (const [paramName, paramValues] of Object.entries(requestBody.formData)) {
                     paramValues.forEach(paramValue => {
@@ -1767,6 +1769,7 @@ chrome.webRequest.onBeforeRequest.addListener(
                 }
             }
 
+            // Handle raw data (could be application/json, application/xml, text/plain, etc.)
             if (requestBody && requestBody.raw) {
                 const encoder = new TextDecoder("utf-8");
                 const postBody = encoder.decode(new Uint8Array(requestBody.raw[0].bytes));
@@ -1774,9 +1777,10 @@ chrome.webRequest.onBeforeRequest.addListener(
             }
         }
     },
-    { urls: ["<all_urls>"], types: ["main_frame", "sub_frame"] }, // Filter to specific URLs and frame types if needed
-    ["requestBody"] // Include the "requestBody" option to have access to POST data
+    { urls: ["<all_urls>"], types: ["main_frame", "sub_frame"] },
+    ["requestBody"]
 );
+
 
 
 function handleRequestMessage(message, sender, sendResponse) {

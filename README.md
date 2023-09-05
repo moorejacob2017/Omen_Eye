@@ -68,3 +68,4 @@ Please remember to use Omen Eye ethically and responsibly.
 
 ## To Do
 - Catch, store, and search for request headers and values instead of just response headers
+- "Post Bodies" is a bit broken ATM in how it collect the post info, does not collect some formats such as JSON, XML, etc.
